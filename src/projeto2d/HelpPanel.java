@@ -71,6 +71,7 @@ public class HelpPanel extends JPanel implements MouseListener{
 		    return max-count;
 		  }
 	
+	  // ========== GOES BACK TO MENU =================
 		public void menuOn() {
 		Projeto2D.cardlayout.show(Projeto2D.mainPanel, "painter");
 	}
@@ -79,27 +80,27 @@ public class HelpPanel extends JPanel implements MouseListener{
 		 super.paintComponent(g);
 		 Graphics2D g2 = (Graphics2D)g;
 		 
+		 //======== FONTS ================
 		 Font font2 = new Font("Courier", Font.PLAIN, 30);
 		 Font fnt2 = new Font("arial", 1, 30);
-		 
 		 Font font1 = new Font("Courier", Font.BOLD, 20);
 		 
-		 g2.drawImage(bi, 0, 0 , this);
+		 //g2.drawImage(bi, 0, 0 , this);
 		 
 		 //Criacao de imagem
 		 
-		 //drawCircle(0, 0, 600, g);
+		 drawCircle(0, 0, 600, g);
 		 
-		 //drawTree(g, 200, 800, -90 ,10);
+		 drawTree(g, 200, 800, -90 ,10);
 		 
-		 //Description using font and text
+		 //========= DESCRIPTION USING FONT AND TEXT ===============
 		 g2.setColor(Color.WHITE);
 		 g2.setFont(font2);
 		 g2.drawString("This is a try to clone the old", 100, 150);
 		 g2.drawString("Rock Paper Scissors game.", 120, 200);
 		 g2.drawString("You know What to do!", 170, 250);
 		 
-		 //Button using primitive rect and text and font 
+		 //============= BUTTON USING PRIMITIVE RECT AND TEXT AND FONTS ============
 		 g2.setFont(fnt2);
 	   	 g2.drawRect(250 , 568, 200, 64);
       	 g2.drawString("Back", 320, 608);    
@@ -112,7 +113,9 @@ public class HelpPanel extends JPanel implements MouseListener{
 		 g2.drawString(" P for Paper ", 250, 470);
 		 g2.drawString(" or S for Scissors", 250, 520);
 		 
-		 //Cliiping
+		 //================ CLIPPING =================================
+		 //NOTE : IT DOESNT APPEAR TO BE CLIPPED BECAUSE I DRAW THE STRINGS OUTSIDE AND INSIDE OF THE GP 
+		 //USING THE SAME COORDINATES
 		 GeneralPath gp1 = new GeneralPath(GeneralPath.WIND_EVEN_ODD);
 		    gp1.moveTo(200, 100);
 		    gp1.quadTo(350, 50, 500, 100);
@@ -121,7 +124,7 @@ public class HelpPanel extends JPanel implements MouseListener{
 		    gp1.closePath();
 		    g2.clip(gp1);
 		    g2.setColor(Color.GRAY);
-		    g2.fill(gp1);
+		    g2.draw(gp1);
 		    
 		    g2.setFont(font2);
 		    g2.setColor(Color.WHITE);
@@ -161,7 +164,7 @@ public class HelpPanel extends JPanel implements MouseListener{
 		
 	}
 	
-	//Image creation 
+	//================ DRAW CIRCLES INSIDE CIRCLES ====================
 	//Sinthesis of an image like the mandelbrot one 
 	void drawCircle(float x, float y, float radius, Graphics g) {
 		Graphics2D g2 = (Graphics2D) g; 
@@ -176,6 +179,7 @@ public class HelpPanel extends JPanel implements MouseListener{
 		  }	  
 	}
 	
+	//================ DRAW A TREE ===================================
 	 void drawTree(Graphics g, int xA , int yA, double angle , int level) {
 		 if (level == 0)
 				g.drawLine(xA, yA, xA, yA);//draws initial line
@@ -189,6 +193,7 @@ public class HelpPanel extends JPanel implements MouseListener{
 	    }
 	 }
 
+	 // ========= FUNCTION TO SEE IF MOUSE IS OVER A PRIMITIVE =====================
 	private boolean mouseOver (int mx, int my, int x, int y , int width, int height) {
 		if(mx > x && mx < x + width ) {
 			if(my > y && my < y + height) {

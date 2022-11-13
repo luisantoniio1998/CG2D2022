@@ -66,6 +66,10 @@ public class Projeto2D extends JFrame implements ActionListener{
 		frame.setTitle("2D Project");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
+		
+		//===== FRAME STARTS IN THE MIDDLE OF THE SCREEN =============
+		frame.setLocationRelativeTo(null);
+		
 		frame.setResizable(false);
 		frame.setVisible(true);
 	}
@@ -78,6 +82,8 @@ public class Projeto2D extends JFrame implements ActionListener{
 		HelpPanel helpPanel;
 		
 	public Projeto2D() {
+		
+		//======= SET A MAIN PANEL WITH CARDLAYOUT ============
 		cardlayout = new CardLayout();
 		mainPanel = new JPanel(cardlayout);
 		
@@ -85,19 +91,22 @@ public class Projeto2D extends JFrame implements ActionListener{
 		gamePanel = new GamePanel();
 		helpPanel = new HelpPanel();
 		
+		//======= ADDED "SUBPANELS" TO MAIN PANEL ==========
 		mainPanel.add(menuPanel, "painter");
 		mainPanel.add(gamePanel, "game");
 		mainPanel.add(helpPanel, "help");
 		
-		//key listener to play 
+		//========== KEY LISTENER FROM GAMEPANEL ===============
 		mainPanel.addKeyListener(gamePanel);
 		mainPanel.setFocusable(true);
 		
 		add(mainPanel);
 		
+		//=========== PRINTER JOB ==================
 		pj = PrinterJob.getPrinterJob();
 		pj.setPrintable(menuPanel);
 		
+		//========== JMENU BAR =================== 
 		JMenuBar mb = new JMenuBar();
 		setJMenuBar(mb);
 
@@ -148,6 +157,8 @@ public class Projeto2D extends JFrame implements ActionListener{
 		menuHelp.add(mi);
 	}
 
+	
+	//=============== CHECK MENU CHOICE ===================
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String cmd = e.getActionCommand();
@@ -195,7 +206,7 @@ public class Projeto2D extends JFrame implements ActionListener{
 	public static void gameOn() {
 		cardlayout.show(mainPanel, "game");
 		
-		//ResetScore() 
+		//=========== RESET SCORE() =================== 
 		//But I chose to return to save the variables of the game and the last play 
 		//Because the player has the choice to reset the score 
 		//Whenever he wants 
@@ -214,6 +225,7 @@ public class Projeto2D extends JFrame implements ActionListener{
 		GamePanel.imageScissors1 = GamePanel.image1.getSubimage(472, 0, 236, 292);*/
 	}
 	
+	// ========= FUNCTION TO GO TO HELP PANEL ======================
 	public static void helpOn() {
 		cardlayout.show(mainPanel, "help");
 	}
@@ -226,23 +238,29 @@ public class Projeto2D extends JFrame implements ActionListener{
 		 */
 		private static final long serialVersionUID = 1L;
 		
+		//============ CUSTOM SHAPES ===================
 		Shape cs = new CustomShape(420, -110, 500, 500);
     	Shape s2 = new Rectangle2D.Double(250 , 468, 200, 64);
 		
+    	//============== IMAGES =======================
 		private static BufferedImage image;
 		private BufferedImage image2;
 		
+		//=============== GENERAL PATH ================
 		private GeneralPath gp1 = new GeneralPath();
 		public double spinValue = 0;
 		
+		// =========== COLISION AND SELECT ============= 
 		boolean colision = false;
 		boolean select = false;
 		
+		//===== COORDINATES TO MOVE CUSTOM SHAPE ===================
 		int firstX = 0;
 		int firstY = 0; 
 		int deltaX = 0;
 		int deltaY = 0;
 		
+		// ==== RULES FOR COMPOSITING =================
 		int[] rules = {AlphaComposite.CLEAR, AlphaComposite.SRC_OVER,
 			    AlphaComposite.DST_OVER, AlphaComposite.SRC_IN,
 			    AlphaComposite.DST_IN, AlphaComposite.SRC_OUT,
@@ -252,10 +270,12 @@ public class Projeto2D extends JFrame implements ActionListener{
 			  int ruleIndex = 0;
 		
 		public MyPanel() {
+			
+			// ===== BACKGROUND AND DIMENSION ==================
 			setPreferredSize(new Dimension(700, 800));
 			setBackground(Color.BLACK);
 			
-			//get logo image 
+			//======== GET LOGO IMAGE ================================
 			URL url = getClass().getClassLoader().getResource("logo.jpg");
 			try {
 				image = ImageIO.read(url);
@@ -263,7 +283,7 @@ public class Projeto2D extends JFrame implements ActionListener{
 				ex.printStackTrace();
 			}
 			
-			//get texture image 
+			//======== GET TEXTURE IMAGE =============================
 			URL url2 = getClass().getClassLoader().getResource("texture.jpg");
 			try {
 				image2 = ImageIO.read(url2);
@@ -271,7 +291,7 @@ public class Projeto2D extends JFrame implements ActionListener{
 				ex.printStackTrace();
 			}
 			
-			//GeneralPath with elipse2D and arc2d appended
+			//====== GENERALPATH WIHT ELIPSE2D AND ARC2D.PIE APPENDED =================
 			gp1.append(new Ellipse2D.Double(200, -250, 100, 100), true);
 			for (double angle = 0; angle < 360; angle += 30) {
 				Arc2D arc = new Arc2D.Double(200, -250, 100, 100, 
@@ -281,16 +301,16 @@ public class Projeto2D extends JFrame implements ActionListener{
 				gp1.append(arc, false);
 			}
 			
-			//Initializate the thread and start it 
+			//====== INITIALIZED THREAD AND START IT =================
 			Thread thread = new Thread(this);
 			thread.start();
 			
-			//addMouseListener for interaction with user 
+			//===== MOUSE LISTENER ====================
 			addMouseListener(this);
 			addMouseMotionListener(this);
 			}
 		
-		//InfoBox
+		//======== INFOBOX ======================================
 		public static void infoBox(String infoMessage, String titleBar) {
 			JOptionPane.showMessageDialog(null, infoMessage, "Info " + titleBar, JOptionPane.INFORMATION_MESSAGE);
 		}
@@ -318,6 +338,7 @@ public class Projeto2D extends JFrame implements ActionListener{
 		
 		static BufferedImage a;
 		
+		//========== GRAYSCALE PROCESSING IMAGE =================
 		public static void processGrayScale() {
 			BufferedImageOp op = null;
 			op = new ColorConvertOp(ColorSpace.getInstance(ColorSpace.CS_GRAY), null);
@@ -325,6 +346,7 @@ public class Projeto2D extends JFrame implements ActionListener{
 			a = bi;
 		}
 		
+		//======== SHARPEN PROCESSING IMAGE ==============
 		public static void processSharpen() {
 			BufferedImageOp op = null;
 			float[] data = { 0f, -1f, 0f, -1f, 5f, -1f, 0f, -1f, 0f };
@@ -334,6 +356,7 @@ public class Projeto2D extends JFrame implements ActionListener{
 			a = bi;
 		}
 		
+		//======= EDGE PROCESSING IMAGE ===============
 		public static void processEdge() {
 			BufferedImageOp op = null;
 			float[] data = { 0f, -1f, 0f, -1f, 4f, -1f, 0f, -1f, 0f };
@@ -343,13 +366,15 @@ public class Projeto2D extends JFrame implements ActionListener{
 			a = bi;
 		}
 		
+		//======== RESCALE PROCESSING IMAGE ==============
 		public static void processRescale() {
 			BufferedImageOp op = null;
 			op = new RescaleOp(1.5f, 0f, null);
 			BufferedImage bi = op.filter(image, null);
 			a = bi;
 		}
-					
+		
+		//===== ROTATION PROCESSING IMAGE ===============
 		public static void processRotate() {
 			BufferedImageOp op = null;
 			AffineTransform at = new AffineTransform();
@@ -359,6 +384,7 @@ public class Projeto2D extends JFrame implements ActionListener{
 			a = bi;
 		}
 		
+		//============ BINARIZATION PROCESSING IMAGE ========================
 		public static BufferedImage binarize(BufferedImage image) {
 			WritableRaster rasterImageIn = image.getRaster();
 			WritableRaster rasterImageOut = image.getRaster();
@@ -381,6 +407,7 @@ public class Projeto2D extends JFrame implements ActionListener{
 	    	binarize(image);
 	    }
 	 
+	    // ============ GRAY SCALE IMAGE PROCESSING ======================
 	    public static BufferedImage RGB2Gray(BufferedImage image) {
 			WritableRaster rasterImgIn = image.getRaster();
 			WritableRaster rasterImgOut = image.getRaster();
@@ -404,27 +431,27 @@ public class Projeto2D extends JFrame implements ActionListener{
 			
 		    Graphics2D g2 = (Graphics2D)g;
 		    
-		    //Colors 
+		    //================= COLORS =====================================
 		    Color newColor = new Color(100, 200, 100);
 		    Color newColor1 = new Color(150, 200, 150);
 		    Color newColor2 = new Color(250, 250, 250);
 		    Color newColor3 = new Color(198, 141, 26);
 		    
-		    //Fonts
+		    //============== FONTS ========================================
 		    Font font = new Font("Calibri", Font.BOLD, 50);
 		    Font font2 = new Font("Courier", Font.PLAIN, 50);
 		    Font font3 = new Font("Serif", Font.PLAIN, 50);
 			Font fnt2 = new Font("arial", 1, 30);
 		    
-		    //Strokes
+		    //=========== STROKES =============================================
 		    Stroke stroke = new BasicStroke(3f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND);
 		    
-		    //Paints 
+		    //============= PAINTS ===========================================
 		    TexturePaint tp = new TexturePaint(image2, 
 		    new Rectangle2D.Double(100, 100, image2.getWidth(), image2.getHeight()));
 		    GradientPaint gp = new GradientPaint(500, 500, newColor2, 650, 650, newColor, true);
 		    
-		    //AlphaComposites
+		    //======= ALPHA COMPOSITES =====================================
         	AlphaComposite ac = AlphaComposite.getInstance(rules[ruleIndex], 0.4f);
             AlphaComposite ac1 = AlphaComposite.getInstance(rules[ruleIndex], 1f);
             
@@ -444,70 +471,70 @@ public class Projeto2D extends JFrame implements ActionListener{
     		if (colision)
     			g2.setColor(Color.RED);
     		else
-    			//GradientPaint in customshape
+    			// ======= GRADIENT PAINT IN CUSTOM SHAPE ====================
     			g2.setPaint(gp);
     		g2.fill(cs);
 		    
-		    //CustomShape2 with TexturePaint 
+		    //======= CUSTOM SHAPE WITH TEXTURE PAINT ==============
 		    g2.setPaint(tp);
 		    Shape cs1 = new CustomShape2(250, -110, 500, 500);
 		    g2.fill(cs1);
 		    
-		    //Primitive oval with ColorPaint 
+		    //======= PRIMITIVE OVAL WITH COLOR PAINT =============
 		    g2.setPaint(newColor3);
 		    g2.fillOval(500, 50, 40, 50);
 		    
-		    //Primitive arc
+		    //======= PRIMITIVE ARC ========================
 		    g2.drawArc(500, 50, 50, 50, 12, 145);
 		    
-		    //Primitive rect
+		    //====== PRIMITIVE RECT ==========================
 		    g2.fillRect(570, 20, 100, 50);
 		    
-		    //Primitive Line
+		    // ======= PRIMITIVE LINE WITH STROKE =================
 		    g2.setStroke(stroke);
 		    g2.drawLine(10, 10, 10, 800);
 		    g2.drawLine(0, 790, 700, 790);
 		    
-		     //Institute Logo 
+		     //====== INSTITUTE LOGO ===================
 			if(a == null) {
 				g.drawImage(image, 10, 10, null);
 			}else {
 				g.drawImage(MyPanel.a,10, 10 , null);
 			}
 			
-		    //Primitive polygon 
+		    // ==== PRIMITIVE POLYGON ========================
 			int xs[] = {image.getWidth()+10-50, image.getWidth()+10, image.getWidth()+10};
 			int ys[] = {10, 10, 60};
 			g.fillPolygon(xs, ys, 3);
 		    
-			//Rectangle2D (Shape from 2D API)
+			//====== RECTANGLE2D (SHAPE FROM 2D API) =====================
 			Rectangle2D rct2d = new Rectangle2D.Double(500, 15 , 180, 180);
             g2.draw(rct2d);
             
-            //Round Rectangle2D(Shape from 2D API)
+            //==== ROUND RECTANGLE 2D (SHAPE FROM 2D API) =============
             RoundRectangle2D rct2d1 = new RoundRectangle2D.Double(500, 20, 180, 180, 10, 10);
             g2.draw(rct2d1);
             
-            //Ellipse2D (Shape from 2D API)
+            //======== ELIPSE2D (SHAPE FROM 2D API) ===========
             Random rand = new Random();
             double upperbound = 700;
             
             Ellipse2D eli2d = new Ellipse2D.Double(rand.nextDouble(700), rand.nextDouble(700), 100, 50);
             g2.fill(eli2d);
             
-            //QuadCurve2D (Shape from 2D API)
+            //====== QUADCURVE (SHAPE FROM 2D API) ==================
             QuadCurve2D qc2d1 = new QuadCurve2D.Double(rand.nextDouble(upperbound), rand.nextDouble(upperbound), rand.nextDouble(upperbound), rand.nextDouble(upperbound), rand.nextDouble(upperbound), rand.nextDouble(upperbound));
             g2.draw(qc2d1);
             
-            //menu inside Jpanel 
+            //======== MENU INSIDE JPANEL ====================
             g2.setColor(Color.white);
             
-            //Help Rectangle
+            //===== HELP RECTANGLE FUNCTIONING AS BUTTON =======
             g2.setFont(fnt2);
         	g2.drawRect(350-100 , 400-32, 200, 64);
         	g2.drawString("Help", 320, 408);
         	
-        	//Play rectangle
+        	//==== PLAY RECTANGLE FUNCTIONING AS BUTTON ==========
         	g2.drawRect(250 , 268 , 200, 64);
         	g2.drawString("Play", 320, 308);
         	
@@ -516,25 +543,27 @@ public class Projeto2D extends JFrame implements ActionListener{
         	//Shape s2 = new Rectangle2D.Double(250 , 468, 200, 64);
         	//g2.drawRect(250 , 468, 200, 64);
         	//g2.draw(s2);
+        	
         	g2.drawString("Quit", 320, 508);  
         	
-        	//Graphics Text
+        	//====== GRAPHICS TEXT ==============================
 		    g2.setColor(newColor1);
 		    g2.setFont(font2);
 		    g2.drawString("Graphics", 160, 100);	  
 		    
-		    //2D Project Text with AlphaComposite
+		    //==== 2D PROJECT TEXT WITH ALPHA COMPOSITE ==============
         	g2.setComposite(ac);
 		    g2.setColor(Color.WHITE);
 		    g2.setFont(font);
 		    g2.drawString("2D Project", 160, 50);  
 		    
-		    //Computation Text with AlphaComposite
+		    //=== COMPUTATION TEXT WITH ALPHACOMPOSITE ====================
 		    g2.setComposite(ac1);
 		    g2.setColor(newColor);
 		    g2.setFont(font3);
 		    g2.drawString("Computation", 160, 150);
 		    
+		    //==================== ROTATING PIE ===============================
             //Rotating pie (Animation) using Arc2D and Elipse2D from 2D API  and AlphaComposite
 		    //Geometric transformation applied to the coordinate system 
 		    g2.setColor(Color.white);
@@ -563,10 +592,12 @@ public class Projeto2D extends JFrame implements ActionListener{
 			deltaX = 0; 
 			deltaY = 0;
 			
+			// ======= GET CUSTOM SHAPE BOUNDS ============================
 			double x = cs.getBounds().getX() + cs.getBounds().getWidth();
 			double y = cs.getBounds().getY() + cs.getBounds().getHeight() / 2; 
 			Point2D p = new Point2D.Double(x, y);
 		
+			//========== CHECK COLLISION BETWEEN CUSTOM SHAPE AND QUIT BUTTON ======
 			if(s2.contains(p))
 				colision = true;
 			else
@@ -574,6 +605,7 @@ public class Projeto2D extends JFrame implements ActionListener{
 			repaint();
 		}
 
+		//==== COMPOSITING WHEN MOUSE CLICKED OUTSIDE BUTTONS AND INSIDE JPANEL ======= 
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			ruleIndex++;
@@ -586,22 +618,22 @@ public class Projeto2D extends JFrame implements ActionListener{
 			int mx = e.getX();
 			int my = e.getY();
 			
-			//Quit button (interaction with user  via mouse)
+			//========== QUIT BUTTON ========================
 			if(mouseOver(mx, my, 250, 468, 200, 64)) {
 				System.exit(0);
 			}
 			
-			//Play button 
+			//=========== PLAY BUTTON ====================
 			if(mouseOver(mx, my, 250, 268, 200, 64)) {
 			 Projeto2D.gameOn();
 			}
 			
-			//Help button 
+			//========== HELP BUTTON ====================
 			if(mouseOver(mx, my, 250, 368, 200, 64)) {
 				Projeto2D.helpOn();
 			}
 			
-			//Interaction between shapes ( CustomShape) 
+			//=========== INTERACTION BETWEEN SHAPES ============ 
 			if(cs.contains(e.getX(), e.getY())) {
 				select = true;
 				firstX = e.getX();
@@ -626,6 +658,7 @@ public class Projeto2D extends JFrame implements ActionListener{
 			
 		}
 		
+		// ===== FUNCTION TO CHECK IF MOUSE IS OVER A PRIMITIVE ================
 		private boolean mouseOver (int mx, int my, int x, int y , int width, int height) {
 			if(mx > x && mx < x + width ) {
 				if(my > y && my < y + height) {
@@ -634,6 +667,7 @@ public class Projeto2D extends JFrame implements ActionListener{
 			}else return false;
 		}
 		
+		// =========== RUNNABLE IMPLEMENATION ADDING SPINVALUE TO THE ARC2D ========
 		@Override
 		public void run() { 
 			while(true) {
@@ -645,7 +679,7 @@ public class Projeto2D extends JFrame implements ActionListener{
 			}
 		}
 
-		//Move CustomShape
+		//========== MOVE CUSTOM SHAPE ====================
 		@Override
 		public void mouseDragged(MouseEvent e) {
 			if(select) {

@@ -51,14 +51,17 @@ public class GamePanel extends JPanel implements ActionListener, MouseListener, 
 		setBackground(Color.black);
 		setPreferredSize(new Dimension(700, 800));
 		
+		//========= JBUTTON BACK TO MENU =============
 		jbutton = new JButton("Go back to menu");
 		jbutton.addActionListener(this);
 		add(jbutton);
 		
+		//========== JBUTTON RESET SCORE ==============
 		jbutton1 = new JButton("Reset Score");
 		jbutton1.addActionListener(this);
 		add(jbutton1);
 		
+		// ============ IMAGES AND SUBIMAGES =======================
 		URL url = getClass().getClassLoader().getResource("rockpaper1.png");
 		try {
 			image = ImageIO.read(url);
@@ -99,12 +102,15 @@ public class GamePanel extends JPanel implements ActionListener, MouseListener, 
 			ex.printStackTrace();
 		}
 		
+		//============ KEY LISTENER ==================
 		addKeyListener(this);
 		setFocusable(true);	
 		
+		//============ MOUSE LISTENER =================
 		addMouseListener(this);
 	}
 	
+	//========== FUNCTION TO GO BACK TO MENU =============
 	public void menuOn() {
 		Projeto2D.cardlayout.show(Projeto2D.mainPanel, "painter");
 	}
@@ -125,6 +131,7 @@ public class GamePanel extends JPanel implements ActionListener, MouseListener, 
 		repaint();
 	}
 	
+	// =========== SCORES ===============
 	static int UserScore = 0;
 	static int PCScore = 0; 
 	
@@ -137,7 +144,7 @@ public class GamePanel extends JPanel implements ActionListener, MouseListener, 
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;
 		
-		//Fonts
+		//=============== FONTS =======================
 		Font font = new Font("Courier", Font.BOLD, 30);
 		Font font1 = new Font("Arial", Font.PLAIN, 15);
 		Font font2 = new Font("Courier", Font.BOLD, 70);
@@ -196,6 +203,7 @@ public class GamePanel extends JPanel implements ActionListener, MouseListener, 
 		
 	}
 
+	// ================ CHOICES FROM PC AND USER =================
 	int UserChoice ;
 	int PcChoice ; 
 	
