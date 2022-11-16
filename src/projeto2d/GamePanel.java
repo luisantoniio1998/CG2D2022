@@ -341,30 +341,32 @@ public class GamePanel extends JPanel implements ActionListener, MouseListener, 
 
 	@Override
 	public void keyPressed(KeyEvent e) {
+		
 		int key = e.getKeyCode();
+		
 		//================== ROCK FROM USER ====================== 
 		if ( key == KeyEvent.VK_R) {
 			 UserChoice = 0;
-				imagePaper = image.getSubimage(236, 0, 236, 292);
-				imageScissors = image.getSubimage(472, 0, 236, 292);
+				 imagePaper = image.getSubimage(236, 0, 236, 292);
+				 imageScissors = image.getSubimage(472, 0, 236, 292);
 				 imageRock = imageRockUser;
 				 string2 = "Rock";
 				 Random rand = new Random();
 				 PcChoice = rand.nextInt(3);
-				if(PcChoice == 0) {
+		if(PcChoice == 0) {
 					imageRock1 = imageRockPC;
 					imagePaper1 = image1.getSubimage(236, 0, 236, 292);
 					imageScissors1 = image1.getSubimage(472, 0, 236, 292);
 					string = "DRAW!";
 					string1 = "Rock";
-				}else if(PcChoice == 1) {
+		}else if(PcChoice == 1) {
 					imagePaper1 = imagePaperPC;
 					imageRock1 = image1.getSubimage(0, 0, 236, 292);
 					imageScissors1 = image1.getSubimage(472, 0, 236, 292);
 					PCScore++;
 					string = " ";
 					string1 = "Paper";
-				}else if(PcChoice == 2) {
+		}else if(PcChoice == 2) {
 					imageScissors1 = imageScissorsPC;
 					imageRock1 = image1.getSubimage(0, 0, 236, 292);
 					imagePaper1 = image1.getSubimage(236, 0, 236, 292);
@@ -383,20 +385,20 @@ public class GamePanel extends JPanel implements ActionListener, MouseListener, 
 			string2 = "Paper";
 			Random rand = new Random();
 			PcChoice = rand.nextInt(3);
-			if(PcChoice == 0) {
+		if(PcChoice == 0) {
 				imageRock1 = imageRockPC;
 				imagePaper1 = image1.getSubimage(236, 0, 236, 292);
 				imageScissors1 = image1.getSubimage(472, 0, 236, 292);
 				UserScore++;
 				string = " ";
 				string1 = "Rock";
-			}else if(PcChoice == 1) {
+		}else if(PcChoice == 1) {
 				imageRock1 = image1.getSubimage(0, 0, 236, 292);
 				imagePaper1 = imagePaperPC;
 				imageScissors1 = image1.getSubimage(472, 0, 236, 292);
 				string = "DRAW!";
 				string1 = "Paper";
-			}else if(PcChoice == 2) {
+		}else if(PcChoice == 2) {
 				imageRock1 = image1.getSubimage(0, 0, 236, 292);
 				imagePaper1 = image1.getSubimage(236, 0, 236, 292);
 				imageScissors1 = imageScissorsPC;
@@ -415,21 +417,21 @@ public class GamePanel extends JPanel implements ActionListener, MouseListener, 
 			string2 = "Scissors";
 			Random rand = new Random ();
 			PcChoice = rand.nextInt(3);
-			if(PcChoice == 0) {
+		if(PcChoice == 0) {
 				imageRock1 = imageRockPC;
 				imagePaper1 = image1.getSubimage(236, 0, 236, 292);
 				imageScissors1 = image1.getSubimage(472, 0, 236, 292);
 				PCScore++;
 				string = " ";
 				string1 = "Rock";
-			}else if(PcChoice == 1) {
+		}else if(PcChoice == 1) {
 				imageRock1 = image1.getSubimage(0, 0, 236, 292);
 				imagePaper1 = imagePaperPC;
 				imageScissors1 = image1.getSubimage(472, 0, 236, 292);
 				UserScore++;
 				string = " ";
 				string1 = "Paper";
-			}else if(PcChoice == 2) {
+		}else if(PcChoice == 2) {
 				imageRock1 = image1.getSubimage(0, 0, 236, 292);
 				imagePaper1 = image1.getSubimage(236, 0, 236, 292);
 				imageScissors1 = imageScissorsPC;

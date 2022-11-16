@@ -124,7 +124,7 @@ public class HelpPanel extends JPanel implements MouseListener{
 		    gp1.closePath();
 		    g2.clip(gp1);
 		    g2.setColor(Color.GRAY);
-		    g2.draw(gp1);
+		    g2.fill(gp1);
 		    
 		    g2.setFont(font2);
 		    g2.setColor(Color.WHITE);

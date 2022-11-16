@@ -150,6 +150,17 @@ public class Projeto2D extends JFrame implements ActionListener{
 		mi6.addActionListener(this);
 		menuProcessing.add(mi6);
 		
+		JMenu menuWind = new JMenu("Winding Rule");
+		mb.add(menuWind);
+		
+		JMenuItem mi7 = new JMenuItem("Even_odd_rule");
+		mi7.addActionListener(this);
+		menuWind.add(mi7);
+		
+		JMenuItem mi8 = new JMenuItem("Non_zero_rule");
+		mi8.addActionListener(this);
+		menuWind.add(mi8);
+		
 		JMenu menuHelp = new JMenu("Help");
 		mb.add(menuHelp);
 		mi = new JMenuItem("About");
@@ -200,6 +211,12 @@ public class Projeto2D extends JFrame implements ActionListener{
 			MyPanel.processRGB2Gray();
 			System.out.println("Logo processed");
 			pack();
+		}else if("Non_zero_rule".equals(cmd)) {
+			MyPanel.windZero();
+			repaint();
+		}else if("Even_odd_rule".equals(cmd)){
+			MyPanel.windOdd();
+			repaint();
 		}
 	}
 	
@@ -246,9 +263,12 @@ public class Projeto2D extends JFrame implements ActionListener{
 		private static BufferedImage image;
 		private BufferedImage image2;
 		
-		//=============== GENERAL PATH ================
+		//=============== GENERAL PATH ARC2.PIE ================
 		private GeneralPath gp1 = new GeneralPath();
 		public double spinValue = 0;
+		
+		//======== GENERALPATH WIND RULES ==============
+		static GeneralPath path = new GeneralPath();
 		
 		// =========== COLISION AND SELECT ============= 
 		boolean colision = false;
@@ -384,6 +404,8 @@ public class Projeto2D extends JFrame implements ActionListener{
 			a = bi;
 		}
 		
+		
+		
 		//============ BINARIZATION PROCESSING IMAGE ========================
 		public static BufferedImage binarize(BufferedImage image) {
 			WritableRaster rasterImageIn = image.getRaster();
@@ -426,7 +448,17 @@ public class Projeto2D extends JFrame implements ActionListener{
 	    public static void processRGB2Gray() {
 	    	RGB2Gray(image);
 	    }
+	    
+	    //========== WINDING RULES ===============================
+	    public static void windOdd() {
+			path.setWindingRule(GeneralPath.WIND_EVEN_ODD);
+		}
 		
+		public static void windZero() {
+			path.setWindingRule(GeneralPath.WIND_NON_ZERO);
+		}
+		
+		//=============== DRAW ===================================
 		private void draw(Graphics g) {
 			
 		    Graphics2D g2 = (Graphics2D)g;
@@ -538,12 +570,26 @@ public class Projeto2D extends JFrame implements ActionListener{
         	g2.drawRect(250 , 268 , 200, 64);
         	g2.drawString("Play", 320, 308);
         	
+        	
+        	//====== CUSTOM SHAPE WITH WIND RULES CHANGING WITH MENU  =====================
+        	g2.setColor(newColor);
+        	path.moveTo(500, 700);
+        	path.quadTo(600, 600, 700, 700);
+        	path.quadTo(600, 850, 500, 700);
+        	path.moveTo(550, 680);
+        	path.lineTo(650, 720);
+        	path.lineTo(650, 680);
+        	path.lineTo(550, 720);
+        	path.lineTo(550, 680);
+        	g2.fill(path);
+        	
         	//Still drawn in interaction between shapes
         	//Quit rectangle
         	//Shape s2 = new Rectangle2D.Double(250 , 468, 200, 64);
         	//g2.drawRect(250 , 468, 200, 64);
         	//g2.draw(s2);
         	
+        	g2.setColor(Color.WHITE);
         	g2.drawString("Quit", 320, 508);  
         	
         	//====== GRAPHICS TEXT ==============================
@@ -674,7 +720,7 @@ public class Projeto2D extends JFrame implements ActionListener{
 				spinValue += 0.01;
 				repaint();
 				try {
-			        Thread.sleep(60);
+			        Thread.sleep(50);
 			      } catch (InterruptedException ex) {}
 			}
 		}
