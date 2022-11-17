@@ -96,9 +96,9 @@ public class HelpPanel extends JPanel implements MouseListener{
 		 //========= DESCRIPTION USING FONT AND TEXT ===============
 		 g2.setColor(Color.WHITE);
 		 g2.setFont(font2);
-		 g2.drawString("This is a try to clone the old", 100, 150);
-		 g2.drawString("Rock Paper Scissors game.", 120, 200);
-		 g2.drawString("You know What to do!", 170, 250);
+		 g2.drawString("This is a try to clone the old", 100, 140);
+		 g2.drawString("Rock Paper Scissors game.", 120, 190);
+		 g2.drawString("You know What to do!", 170, 240);
 		 
 		 //============= BUTTON USING PRIMITIVE RECT AND TEXT AND FONTS ============
 		 g2.setFont(fnt2);

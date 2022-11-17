@@ -186,23 +186,23 @@ public class Projeto2D extends JFrame implements ActionListener{
 		}else if("Grayscale".equals(cmd)) {
 			MyPanel.processGrayScale();
 			System.out.println("Grayscale applied");
-			repaint();
+			//repaint();
 		}else if("Sharpen".equals(cmd)) {
 			MyPanel.processSharpen();
 			System.out.println("Logo sharpened");
-			repaint();
+			//repaint();
 		}else if("Edge".equals(cmd)) {
 			MyPanel.processEdge();
 			System.out.println("Logo edged");
-			repaint();
+			//repaint();
 		}else if("Rescale".equals(cmd)) {
 			MyPanel.processRescale();
 			System.out.println("Logo rescaled");
-			repaint();
+			//repaint();
 		}else if("Rotate".equals(cmd)) {
 			MyPanel.processRotate();
 			System.out.println("Logo rotated");
-			repaint();
+			//repaint();
 		}else if("Binarization(Raster)".equals(cmd)) {
 			MyPanel.processBinarization();
 			System.out.println("Logo binarized");
@@ -213,10 +213,10 @@ public class Projeto2D extends JFrame implements ActionListener{
 			pack();
 		}else if("Non_zero_rule".equals(cmd)) {
 			MyPanel.windZero();
-			repaint();
+			//repaint();
 		}else if("Even_odd_rule".equals(cmd)){
 			MyPanel.windOdd();
-			repaint();
+			//repaint();
 		}
 	}
 	
@@ -648,7 +648,7 @@ public class Projeto2D extends JFrame implements ActionListener{
 				colision = true;
 			else
 				colision = false;
-			repaint();
+			//repaint();
 		}
 
 		//==== COMPOSITING WHEN MOUSE CLICKED OUTSIDE BUTTONS AND INSIDE JPANEL ======= 
@@ -656,7 +656,7 @@ public class Projeto2D extends JFrame implements ActionListener{
 		public void mouseClicked(MouseEvent e) {
 			ruleIndex++;
 		    ruleIndex %= 12;
-		    repaint();
+		    //repaint();
 		}
 
 		@Override
